@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Toolchain Manager",
+    "description": "Manage local multi-language runtimes with mise: installed and available versions, .mise.toml-driven install / use / prune, a settings page and nine agent tools."
+  }
+}

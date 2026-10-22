@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "工具链管理",
+    "description": "用 mise 管理本机多语言运行时：查看已装与可用版本，按 .mise.toml 安装 / 切换 / 清理，附设置页与九个 agent 工具。"
+  }
+}

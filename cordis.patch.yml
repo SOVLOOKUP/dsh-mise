@@ -1,0 +1,27 @@
+# dsh-mise: one row. The package main is the Host half (mise command layer,
+# /api endpoints, five tools); package.json's dsh.client loads ./client as the
+# browser half, which draws the settings page.
+- insert:
+    - id: dsh-mise
+      name: '@sovlookup/dsh-mise'
+      config:
+        # '' = `mise` on the Host process PATH; set an absolute path to pin one.
+        miseBin: ''
+        # '' = the Host process cwd. The panel can point anywhere at runtime.
+        cwd: ''
+        # Extra environment for every mise child process, e.g.
+        #   MISE_DATA_DIR: /home/you/.local/share/mise
+        env:
+          # Container /tmp is wiped on restart, and this host sets
+          # XDG_DATA_HOME=/tmp/.local/share — so mise's default data dir would
+          # lose every installed toolchain on reboot. Pin it somewhere durable.
+          MISE_DATA_DIR: /workspace/.local/share/mise
+        timeoutMs: 20000
+        longTimeoutMs: 900000
+        # readonly | ask | auto. `ask` routes every mutating tool call through
+        # DSH's approval seam and denies when no approver is configured; this
+        # session has approval prompts disabled, so `auto` is the tier that
+        # actually works here. Set `ask` (or `readonly`) to tighten it.
+        writeMode: auto
+        remoteLimit: 30
+        registryLimit: 40

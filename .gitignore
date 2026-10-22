@@ -1,0 +1,10 @@
+node_modules/
+*.tgz
+.DS_Store
+
+# Legacy pre-TypeScript build copies in the repo root (the host watched ./client.js
+# before the package moved to dist/). `npm run legacy:drop` deletes them once the
+# host has been restarted; dist/ is the only source of truth.
+/client.js
+/index.js
+/mise.js

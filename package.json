@@ -1,0 +1,94 @@
+{
+  "name": "@sovlookup/dsh-mise",
+  "version": "0.1.0",
+  "description": "Toolchain manager for DeepSeek Harness (backed by mise): a settings page for installed and available versions, .mise.toml-driven install / use / uninstall / prune, PATH activation, and nine agent tools.",
+  "type": "module",
+  "license": "MIT",
+  "author": "SOVLOOKUP",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "mise",
+    "toolchain",
+    "runtime",
+    "version-manager",
+    "node",
+    "bun",
+    "python"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SOVLOOKUP/dsh-mise.git"
+  },
+  "homepage": "https://github.com/SOVLOOKUP/dsh-mise#readme",
+  "bugs": {
+    "url": "https://github.com/SOVLOOKUP/dsh-mise/issues"
+  },
+  "engines": {
+    "node": ">=22",
+    "dsh": ">=0.2.0-rc.2"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./client": "./dist/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "dist",
+    "src",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "README.zh.md",
+    "LICENSE",
+    "screenshots.json",
+    "assets"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/finish-client.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json",
+    "pretest": "npm run build",
+    "test": "node --experimental-strip-types test/host.ts && node --experimental-strip-types test/client.ts",
+    "check": "npm run build && npm run typecheck && node --experimental-strip-types test/host.ts && node --experimental-strip-types test/client.ts",
+    "legacy:drop": "node scripts/drop-legacy.mjs",
+    "prepack": "npm run build"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ]
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/dsh-client-connection": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-llm": "^0.2.1-rc.2",
+    "@deepseek-ai/dsh-tools": "0.2.1-rc.2",
+    "@types/node": "^24.7.0",
+    "@types/react": "^18.3.12",
+    "@types/react-test-renderer": "^18.3.0",
+    "react": "^18.3.1",
+    "react-test-renderer": "^18.3.1",
+    "typescript": "^5.9.2"
+  }
+}
